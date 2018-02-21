@@ -29,21 +29,23 @@
     </div>
   </div>
 </form>
-<div class="container">
-  <!-- Main container -->
-  <div class="columns  is-multiline ">
-      
-      <div class="column is-one-third" *ngFor="let item of days">
-        <div class="box">
-          <article class="media">
-            <div class="media-left">
-              EUR
-            </div>
-            <div class="media-content">
-              {{item}}th January
-            </div>
-          </article>
+<div class="section">
+  <div class="container">
+    <h3 class="subtitle">Money Exchange</h3>
+    <!-- Main container -->
+    <div class="columns is-multiline is-mobile"> 
+        <div class="column is-half" *ngFor="let item of currencies">
+          <div class="box">
+            <article class="media">
+              <div class="media-left">
+                {{item.currency}}
+              </div>
+              <div class="media-content">   
+                <strong>{{item.rate}}</strong>
+              </div>
+            </article>
+          </div>
         </div>
-      </div>
+    </div>
   </div>
 </div>

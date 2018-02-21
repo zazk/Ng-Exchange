@@ -473,7 +473,7 @@ docker run -e VIRTUAL_HOST=angular-starter.your-domain.com --name angular-starte
 You can quickly create a free site to get started using this
 starter kit in production on [Netlify](https://www.netlify.com/):
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/AngularClass/angular-starter)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/zazk/Ng-Exchange)
 
 ___
 

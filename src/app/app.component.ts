@@ -23,10 +23,10 @@ import { AppState } from './app.service';
       <div class="container has-text-centered">
         <div class="hero-body ">
           <h1 class="title">
-            Title
+            Ng Exchange
           </h1>
           <h2 class="subtitle">
-            Subtitle
+            Foreign exchange rates and currency conversion
           </h2>
         </div>
         <nav class="tabs is-boxed is-fullwidth">
@@ -61,8 +61,6 @@ import { AppState } from './app.service';
       <main>
         <router-outlet></router-outlet>
       </main>
-
-      <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
 
       <footer>
         <section class="hero is-primary">

@@ -16,7 +16,7 @@ export class LandingComponent implements OnInit {
   public from: any = 1;
   public to: any;
   private formattedAmount: string = '1';
-  private data;
+  private currencies = [];
   private currencyIndex: number;
 
   constructor( private currencyPipe: CurrencyPipe, public converter: Title) {}
@@ -25,14 +25,22 @@ export class LandingComponent implements OnInit {
     console.log('hello `Landing` component');
     this.from = this.setCurrency(this.from);
     this.days =  Array.from({length: 20}, (v, k) => k + 1 );
-    let timer = Observable.timer(0, 1 * 60 * 1000);
+    let timer = Observable.timer(0, 1 * 10 * 1000);
     let obj = timer.subscribe( (t) => {
       this.converter.getData().subscribe((data) => {
-        this.data = data;
-        console.log('Data from Currency on Landing', this.data);
-        this.currencyIndex = data['rates']['EUR'];
-        this.to = this.setCurrency(this.currencyIndex, 'EUR');
-      });
+          console.log('Data from Currency on Landing', data);
+          this.currencyIndex = data['rates']['EUR'];
+          this.to = this.setCurrency(this.currencyIndex, 'EUR');
+        });
+
+      this.converter.getMultileData().subscribe( (data) => {
+          this.currencies = [];
+          const rates = data['rates'];
+          for ( const o of Object.keys( rates ) ){
+              this.currencies.push({currency: o, rate: rates[o]});
+          }
+          console.log('Data from Multiple Currencies', this.currencies);
+        });
     });
   }
 
@@ -43,6 +51,7 @@ export class LandingComponent implements OnInit {
         this.formattedAmount = this.setCurrency( this.from.replace(/[USD,]/g, '') );
       }
       element.target.value = this.formattedAmount;
+      this.currencies = [];
     } catch (e) {
       console.log(e);
     }
@@ -60,10 +69,12 @@ export class LandingComponent implements OnInit {
       console.log(e);
     }
   }
+
   public convertInputCurrency() {
     console.log('Convert Input Currency', this.to, 'this.form', this.from);
     this.to = this.setCurrency( ( this.from.replace(/[USD,]/g, '') * this.currencyIndex), 'EUR');
   }
+
   private setCurrency(value, currency: string = 'USD') {
     return this.currencyPipe.transform(value, currency, 'code', '1.2-4');
   }

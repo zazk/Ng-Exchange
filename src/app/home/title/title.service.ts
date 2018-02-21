@@ -12,7 +12,11 @@ export class Title {
 
   public getData() {
     console.log('Title#getData(): Get Data');
-    return this.http.get('http://api.fixer.io/latest?base=USD&symbols=EUR');
+    return this.http.get('https://api.fixer.io/latest?base=USD&symbols=EUR');
   }
 
+  public getMultileData() {
+    console.log('Title#getMultipleData(): Get Multiple Data');
+    return this.http.get('https://api.fixer.io/latest?base=USD');
+  }
 }
