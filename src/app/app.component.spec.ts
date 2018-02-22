@@ -49,7 +49,7 @@ describe(`App`, () => {
     expect(comp).toBeDefined();
   });
 
-  it(`should be @TipeIO`, () => {
+  it(`should be @zazk`, () => {
     expect(comp.twitter).toEqual('https://twitter.com/zazk');
     expect(comp.name).toEqual('Ng Exchange');
   });

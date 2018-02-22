@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-import { Title } from '../home/title';
 import { Observable } from 'rxjs/Rx';
+import { DataService } from '../data';
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.css'],
-  providers: [CurrencyPipe, Title]
+  providers: [CurrencyPipe, DataService]
 })
 export class LandingComponent implements OnInit {
 
@@ -19,7 +19,7 @@ export class LandingComponent implements OnInit {
   private currencies = [];
   private currencyIndex: number;
 
-  constructor( private currencyPipe: CurrencyPipe, public converter: Title) {}
+  constructor( private currencyPipe: CurrencyPipe, public converter: DataService) {}
 
   public ngOnInit() {
     console.log('hello `Landing` component');
