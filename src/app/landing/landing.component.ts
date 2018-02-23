@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
 import { Observable } from 'rxjs/Rx';
 import { DataService } from '../data';
+import { MyExchangePipe } from '../pipes/exchange.pipe';
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.css'],
-  providers: [CurrencyPipe, DataService]
+  providers: [DataService, MyExchangePipe]
 })
 export class LandingComponent implements OnInit {
 
@@ -19,18 +19,21 @@ export class LandingComponent implements OnInit {
   private currencies = [];
   private currencyIndex: number;
 
-  constructor( private currencyPipe: CurrencyPipe, public converter: DataService) {}
+  constructor( private currencyPipe: MyExchangePipe, public converter: DataService) {}
 
   public ngOnInit() {
     console.log('hello `Landing` component');
-    this.from = this.setCurrency(this.from);
+    this.from = this.currencyPipe.transform(this.from);
     this.days =  Array.from({length: 20}, (v, k) => k + 1 );
     let timer = Observable.timer(0, 1 * 10 * 1000);
+    this.converter.getTestingData().subscribe( (data) => {
+      console.log('DATA TESTING', data);
+    });
     let obj = timer.subscribe( (t) => {
       this.converter.getData().subscribe((data) => {
           console.log('Data from Currency on Landing', data);
           this.currencyIndex = data['rates']['EUR'];
-          this.to = this.setCurrency(this.currencyIndex, 'EUR');
+          this.convertInputCurrency();
         });
 
       this.converter.getMultileData().subscribe( (data) => {
@@ -44,38 +47,10 @@ export class LandingComponent implements OnInit {
     });
   }
 
-  public transformCurrency(element) {
-    console.log('transformCurrency', element.target.value, this.from);
-    try {
-      if (typeof (element.target.value) !== 'number') {
-        this.formattedAmount = this.setCurrency( this.from.replace(/[USD,]/g, '') );
-      }
-      element.target.value = this.formattedAmount;
-      this.currencies = [];
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  public removeCurrency(element) {
-    try {
-      if (element.target.value.indexOf('USD') !== -1) {
-        this.formattedAmount = this.formattedAmount.replace(/[USD,]/g, '');
-        element.target.value = this.formattedAmount;
-      } else {
-        this.formattedAmount = '0';
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   public convertInputCurrency() {
     console.log('Convert Input Currency', this.to, 'this.form', this.from);
-    this.to = this.setCurrency( ( this.from.replace(/[USD,]/g, '') * this.currencyIndex), 'EUR');
+    this.to = this.currencyPipe.transform( 
+      ( this.from.replace(/[USD,]/g, '') * this.currencyIndex).toString() , 'EUR');
   }
 
-  private setCurrency(value, currency: string = 'USD') {
-    return this.currencyPipe.transform(value, currency, 'code', '1.2-4');
-  }
 }

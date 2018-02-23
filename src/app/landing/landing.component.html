@@ -6,7 +6,7 @@
         <div class="level-item">
           <p class="control">
             <input placeholder="USD" class="input" type="text" name="from" id="from" 
-            [(ngModel)]="from" (blur)="transformCurrency($event)" (focus)="removeCurrency($event)"
+            [(ngModel)]="from" myExchangeFormat
             >
           </p>
         </div>
@@ -41,7 +41,7 @@
                 {{item.currency}}
               </div>
               <div class="media-content">   
-                <strong>{{item.rate}}</strong>
+                <strong>{{item.rate | number:'1.1-4' }}</strong>
               </div>
             </article>
           </div>

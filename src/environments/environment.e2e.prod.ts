@@ -9,6 +9,10 @@ export const environment: Environment = {
   production: true,
   showDevModule: true,
 
+  apiHost: 'https://eebc5bde.ngrok.io/Currency/Exchange',
+
+  apiHostMultiple: 'https://eebc5bde.ngrok.io/Currency/ExchangeMultiple',
+
   /** Angular debug tools in the dev console
    * https://github.com/angular/angular/blob/86405345b781a9dc2438c0fbe3e9409245647019/TOOLS_JS.md
    * @param modRef

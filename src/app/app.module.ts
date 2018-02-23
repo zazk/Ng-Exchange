@@ -20,9 +20,11 @@ import { NoContentComponent } from './no-content';
 import { XLargeDirective } from './home/x-large';
 import { DevModuleModule } from './+dev-module';
 import { LandingComponent } from './landing';
+import { LoginComponent } from './login';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
+import { ExchangeDirective } from './directives/exchange-format.directive';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -47,7 +49,9 @@ type StoreType = {
     HomeComponent,
     NoContentComponent,
     XLargeDirective,
-    LandingComponent
+    LandingComponent,
+    LoginComponent,
+    ExchangeDirective
 ],
   /**
    * Import Angular's modules.
@@ -64,6 +68,7 @@ type StoreType = {
 
     /**
      * This section will import the `DevModuleModule` only in certain build types.
+import { LoginComponent } from './login/login.component';
      * When the module is not imported it will get tree shaked.
      * This is a simple example, a big app should probably implement some logic
      */
